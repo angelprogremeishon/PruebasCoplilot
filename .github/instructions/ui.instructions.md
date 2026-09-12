@@ -20,6 +20,13 @@ Refer to technology-specific instruction files:
 
 ## Core Principles
 
+### Comments and Documentation
+
+- Comment **why**: explain intent, trade-offs, invariants, accessibility decisions, or other reasoning that is not apparent from the code.
+- Do not comment **what** the code already states. Remove comments that only paraphrase a tag, expression, or function name.
+- Keep comments accurate as part of the same change as the code they describe; outdated comments are bugs.
+- Reusable Astro components must document their `Props` interface and component contract. Data-layer exports follow the TSDoc/JSDoc requirements in [`drizzle.instructions.md`](drizzle.instructions.md).
+
 ### Testability
 
 - Every interactive element MUST include a `data-testid` attribute
@@ -49,7 +56,7 @@ Refer to technology-specific instruction files:
 - Create reusable components for common UI patterns
 - Keep components focused on a single responsibility
 - Use props for configuration, not duplication
-- Document component APIs with TypeScript types
+- Document component APIs with a typed and documented `Props` interface
 
 ## Development Workflow
 
