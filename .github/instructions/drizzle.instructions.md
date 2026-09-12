@@ -51,6 +51,9 @@ export async function getAllGameIds(db: Database): Promise<number[]> {
 }
 ```
 
+- Every exported function in `db/` and `src/lib/` must have a TSDoc/JSDoc comment immediately above its declaration.
+- The comment must describe the function's purpose, every parameter (including the injectable `db` argument), and its return value. Use `@param` and `@returns` tags when the signature is not self-explanatory.
+- Comments explain intent and important decisions, not mechanics that are already clear from the code. Update or remove comments whenever the related behavior changes; stale comments are bugs.
 - Always `order by` a stable column (title) so static builds are deterministic.
 - Map raw rows to the app-facing `Game`/`Publisher`/`Category` types in one place; don't leak Drizzle row shapes into components.
 - Keep ordering/lookup logic in `games.ts`, not in pages.
@@ -67,6 +70,8 @@ Unit-test transforms directly and helpers against `createTestDatabase()`. See [`
 
 Node.js 22.13 or later is required because the data layer uses the built-in `node:sqlite` module without an experimental flag. Do not introduce third-party SQLite drivers that ship platform-specific binaries.
 
-## Type checking
+## TypeScript formatting and type checking
 
 The data layer (`db/**/*.ts`, `src/lib/*.ts`) is type-checked by `npm run typecheck`, which runs the native **TypeScript 7** compiler (`tsgo`, from `@typescript/native-preview`) against `tsconfig.tsgo.json`. Keep helpers exported with explicit parameter and return types so `tsgo` can verify them. Linting is unaffected — ESLint + `typescript-eslint` still run on the classic `typescript` package.
+
+Use the repository's existing TypeScript style: four-space indentation, single quotes, semicolons, trailing commas in multiline literals, and explicit types for exported parameters and return values. ESLint enforces explicit module-boundary types for this data-layer scope; fix the type at the declaration rather than suppressing the rule.
